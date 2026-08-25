@@ -1,0 +1,7 @@
+[tools]
+uv = "latest"
+node = "22"
+"npm:pnpm" = "11"
+
+[env]
+_.file = ".env"

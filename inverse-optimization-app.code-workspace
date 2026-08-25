@@ -1,0 +1,32 @@
+{
+  "folders": [
+    {
+      "name": "Repository",
+      "path": "."
+    },
+    {
+      "name": "Backend",
+      "path": "backend"
+    },
+    {
+      "name": "Web-Streamlit",
+      "path": "web-streamlit"
+    },
+    {
+      "name": "Web",
+      "path": "web"
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      "backend": true,
+      "web-streamlit": true,
+      "web": true
+    },
+    "search.exclude": {
+      "backend/**": true,
+      "web-streamlit/**": true,
+      "web/**": true
+    },
+  },
+}

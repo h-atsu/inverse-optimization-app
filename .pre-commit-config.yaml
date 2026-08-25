@@ -1,0 +1,84 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-added-large-files
+      - id: check-json
+        exclude: ^web/tsconfig(?:\.[^.]+)?\.json$
+      - id: check-merge-conflict
+      - id: check-toml
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+
+  - repo: local
+    hooks:
+      - id: uv-lock-backend
+        name: uv lock (backend)
+        entry: uv lock --project backend --check
+        language: system
+        files: ^backend/(pyproject\.toml|uv\.lock)$
+        pass_filenames: false
+
+      - id: ruff-check-backend
+        name: ruff check (backend)
+        entry: uv run --project backend --frozen ruff check --fix
+        language: system
+        files: ^backend/
+        types_or: [python, pyi]
+
+      - id: ruff-format-backend
+        name: ruff format (backend)
+        entry: uv run --project backend --frozen ruff format
+        language: system
+        files: ^backend/
+        types_or: [python, pyi]
+
+      - id: ty-check-backend
+        name: ty check (backend)
+        entry: uv run --project backend --frozen ty check backend
+        language: system
+        files: ^backend/.*\.pyi?$
+        pass_filenames: false
+
+      - id: uv-lock-web-streamlit
+        name: uv lock (web-streamlit)
+        entry: uv lock --project web-streamlit --check
+        language: system
+        files: ^web-streamlit/(pyproject\.toml|uv\.lock)$
+        pass_filenames: false
+
+      - id: ruff-check-web-streamlit
+        name: ruff check (web-streamlit)
+        entry: uv run --project web-streamlit --frozen ruff check --fix
+        language: system
+        files: ^web-streamlit/
+        types_or: [python, pyi]
+
+      - id: ruff-format-web-streamlit
+        name: ruff format (web-streamlit)
+        entry: uv run --project web-streamlit --frozen ruff format
+        language: system
+        files: ^web-streamlit/
+        types_or: [python, pyi]
+
+      - id: ty-check-web-streamlit
+        name: ty check (web-streamlit)
+        entry: uv run --project web-streamlit --frozen ty check web-streamlit
+        language: system
+        files: ^web-streamlit/.*\.pyi?$
+        pass_filenames: false
+
+      - id: oxlint-web
+        name: oxlint (web)
+        entry: pnpm --dir web lint
+        language: system
+        files: ^web/.*\.[cm]?[jt]sx?$
+        pass_filenames: false
+
+      - id: terraform-fmt
+        name: terraform fmt
+        entry: terraform fmt -recursive infra
+        language: system
+        files: ^infra/.*\.tf$
+        pass_filenames: false
